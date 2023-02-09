@@ -3,3 +3,6 @@ CREATE TABLE MyTable(
     val NUMBER NOT NULL,
     PRIMARY KEY(id)
     );
+
+
+
