@@ -14,3 +14,15 @@ BEGIN
 
     RETURN utl_lms.format_message('INSERT INTO MyTable(id, val) VALUES(%s, %s)', TO_CHAR(ex_id), TO_CHAR(ex_val));
 END;
+/
+
+variable res varchar2(500);
+
+begin
+    select generate_insert(5)
+    into :res
+    from dual;
+end;
+/
+
+print res;

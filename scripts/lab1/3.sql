@@ -31,3 +31,15 @@ ELSE
 END IF;
 RETURN answer;
 END;
+/
+
+variable res varchar2(500);
+
+begin
+    select is_even()
+    into :res
+    from dual;
+end;
+/
+
+print res;
