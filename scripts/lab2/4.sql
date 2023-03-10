@@ -10,8 +10,8 @@ create table students_logs(
 
 create or replace trigger students_logs
     before insert or update or delete
-                     on students
-                         for each row
+    on students
+    for each row
 declare
     pragma autonomous_transaction;
 begin
@@ -24,3 +24,4 @@ begin
     end if;
     commit;
 end students_logs;
+/

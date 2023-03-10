@@ -20,7 +20,8 @@ begin
     execute immediate 'alter trigger students_insert enable';
     execute immediate 'alter trigger students_logs enable';
 end restore_students;
-
+/
 begin
-    restore_students(to_date('2023-02-00 00:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_date('2023-02-00 00:00:00', 'yyyy-mm-dd hh24:mi:ss'));
+    restore_students(to_date('2023-02-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_date('2023-02-05 00:00:00', 'yyyy-mm-dd hh24:mi:ss'));
 end;
+/

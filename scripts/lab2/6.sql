@@ -1,7 +1,7 @@
 create or replace trigger students_control
     before insert or update or delete
-                     on students
-                         for each row
+    on students
+    for each row
 declare
     pragma autonomous_transaction;
 begin
@@ -17,3 +17,4 @@ begin
     end if;
     commit;
 end students_control;
+/
