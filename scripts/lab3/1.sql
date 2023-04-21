@@ -865,6 +865,12 @@ BEGIN
 END;
 
 
+begin
+    check_tables('C##DEV_SCHEMA', 'C##PROD_SCHEMA');
+    add_all_tables('C##DEV_SCHEMA');
+    --check_callables('C##DEV_SCHEMA', 'C##PROD_SCHEMA', 'FUNCTION');
+end;
+
 CREATE TABLE C##dev_schema.products
 ( product_id number not null PRIMARY KEY,
   supplier_id number not null
@@ -890,3 +896,81 @@ FOREIGN KEY (product_id)
 REFERENCES C##dev_schema.products (product_id);
 
 select * from TablesToCreate;
+
+CREATE TABLE C##dev_schema.t1
+( t1_id number not null PRIMARY KEY,
+  t2_id number not null,
+  t3_id number not null
+);
+
+CREATE TABLE C##dev_schema.t2
+( t2_id number not null PRIMARY KEY,
+  t3_id number not null,
+  t1_id number not null
+);
+
+CREATE TABLE C##dev_schema.t3
+( t3_id number not null PRIMARY KEY,
+  t1_id number not null,
+  t2_id number not null
+);
+
+ALTER TABLE C##dev_schema.t1
+ADD CONSTRAINT fkt1
+FOREIGN KEY (t2_id)
+REFERENCES C##dev_schema.t2 (t2_id);
+
+ALTER TABLE C##dev_schema.t2
+ADD CONSTRAINT fkt2
+FOREIGN KEY (t3_id)
+REFERENCES C##dev_schema.t3 (t3_id);
+
+ALTER TABLE C##dev_schema.t3
+ADD CONSTRAINT fkt3
+FOREIGN KEY (t1_id)
+REFERENCES C##dev_schema.t1 (t1_id);
+
+
+create or replace function C##dev_schema.test_func1(arg1 number, arg2 number) return number is
+begin
+    DBMS_OUTPUT.PUT_LINE('DROP INDEX ' || ';');
+    return 1;
+end;
+
+
+create or replace function C##prod_schema.test_func1(arg1 number, arg2 number) return number is
+begin
+    DBMS_OUTPUT.PUT_LINE('aboba');
+    return 2;
+end;
+
+
+CREATE TABLE C##dev_schema.tab1
+( t1_id number not null PRIMARY KEY,
+  t2_id number not null,
+  t3_id number not null
+);
+
+CREATE TABLE C##dev_schema.tab2
+( t2_id number not null PRIMARY KEY,
+  t3_id number not null,
+  t1_id number not null
+);
+
+CREATE TABLE C##dev_schema.tab3
+( t3_id number not null PRIMARY KEY,
+  t1_id number not null,
+  t2_id number not null
+);
+
+ALTER TABLE C##dev_schema.tab2
+ADD CONSTRAINT fktt1
+FOREIGN KEY (t1_id)
+REFERENCES C##dev_schema.tab1 (t1_id);
+
+ALTER TABLE C##dev_schema.tab1
+ADD CONSTRAINT fktt2
+FOREIGN KEY (t3_id)
+REFERENCES C##dev_schema.tab3 (t3_id);
+
+
